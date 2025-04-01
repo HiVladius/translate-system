@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { GridSection } from "./GridSection";
 import { Resizer } from "./Resizer";
-import { ResizableGridProps } from "./interface/interfaces";
+import { ResizableGridProps } from "../interface/interfaces";
 
 
 export const ResizableGrid = ({
@@ -30,7 +30,7 @@ export const ResizableGrid = ({
   });
 
   // Iniciar el redimensionamiento horizontal
-  const startResizeHorizontal = (e) => {
+  const startResizeHorizontal = (e:any) => {
     if (!containerRef.current) return;
 
     const containerRect = containerRef.current.getBoundingClientRect();
@@ -50,7 +50,7 @@ export const ResizableGrid = ({
   };
 
   // Iniciar el redimensionamiento vertical
-  const startResizeVertical = (e) => {
+  const startResizeVertical = (e:any) => {
     if (!containerRef.current) return;
 
     const containerRect = containerRef.current.getBoundingClientRect();
@@ -70,7 +70,7 @@ export const ResizableGrid = ({
   };
 
   // Actualizar dimensiones durante el redimensionamiento
-  const handleResize = (e) => {
+  const handleResize = (e:any) => {
     if (!containerRef.current) return;
 
     const containerRect = containerRef.current.getBoundingClientRect();

@@ -1,9 +1,14 @@
 
 import { ResizableGrid } from "../grids/ResizableGrid";
+import { Script } from "../sections/Script";
 import { Translation } from "../sections/Translation";
 
 export const EditionPage = () => {
   
+    const handleDocumentLoaded = (content: string) => {
+      console.log("Documento cargado con éxito, longitud:", content.length);
+      // Aquí puedes añadir lógica para procesar el contenido cargado
+    };
 
   const section =  {
     topLeft: {
@@ -12,7 +17,7 @@ export const EditionPage = () => {
     },
     topRight: {
       title: 'SCRIPT',
-      content: null
+      content: <Script onContentLoaded={handleDocumentLoaded} />,
     },
     bottomLeft: {
       title: 'TIME LAPS',

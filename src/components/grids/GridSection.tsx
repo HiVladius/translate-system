@@ -1,10 +1,11 @@
 import React from "react";
+import { GridSectionProps } from "../interface/interfaces";
 
 export const GridSection = ({
-    gridPosition = { column: 1, row: 1 },
-    title = "",
-    content = null,
-}) => {
+    gridPosition,
+    title,
+    content,
+}:GridSectionProps) => {
     const style: React.CSSProperties = {
         gridColumn: gridPosition.column,
         gridRow: gridPosition.row,

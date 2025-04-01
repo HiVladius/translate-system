@@ -1,0 +1,140 @@
+.script-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .file-upload-section {
+    margin-bottom: 30px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .file-input-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  
+  .file-label {
+    cursor: pointer;
+    background-color: #0066cc;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: 500;
+    display: inline-block;
+    transition: background-color 0.3s;
+  }
+  
+  .file-label:hover {
+    background-color: #0052a3;
+  }
+  
+  .file-name {
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .reset-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .loading {
+    margin-top: 15px;
+    color: #0066cc;
+    font-weight: 500;
+  }
+  
+  .error-message {
+    margin-top: 15px;
+    color: #d32f2f;
+    font-weight: 500;
+  }
+  
+  .document-preview {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .document-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  /* Estilos para el contenido del documento */
+  .document-content h1, .document-content h2, .document-content h3 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+  
+  .document-content p {
+    margin-bottom: 1em;
+  }
+  
+  .document-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+  
+  .document-content td, .document-content th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .document-content ul, .document-content ol {
+    margin-left: 20px;
+    margin-bottom: 1em;
+  }
+  
+  .document-content img {
+    max-width: 100%;
+    height: auto;
+  }
+
+
+  .pdf-content {
+    font-family: Arial, sans-serif;
+  }
+  
+  .pdf-page {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .pdf-page-divider {
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    margin: 30px 0;
+  }
+  
+  /* Ajuste del selector de archivos para mostrar los tipos permitidos */
+  .file-label::after {
+    content: " (.docx, .pdf)";
+    font-size: 0.8em;
+    opacity: 0.7;
+  }
