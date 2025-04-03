@@ -3,7 +3,6 @@ import { GridSection } from "./GridSection";
 import { Resizer } from "./Resizer";
 import { ResizableGridProps } from "../interface/interfaces";
 
-
 export const ResizableGrid = ({
   initialLayout = { columns: [1, 10, 1], rows: [2, 10, 1] },
   sections = {
@@ -29,11 +28,15 @@ export const ResizableGrid = ({
     startRatioV: 0,
   });
 
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
   // Iniciar el redimensionamiento horizontal
-  const startResizeHorizontal = (e:any) => {
+  const startResizeHorizontal = (e: any) => {
     if (!containerRef.current) return;
 
-    const containerRect = containerRef.current.getBoundingClientRect();
     const { columns } = gridLayout;
     const startRatioH = columns[0] / (columns[0] + columns[2]);
 
@@ -50,10 +53,9 @@ export const ResizableGrid = ({
   };
 
   // Iniciar el redimensionamiento vertical
-  const startResizeVertical = (e:any) => {
+  const startResizeVertical = (e: any) => {
     if (!containerRef.current) return;
 
-    const containerRect = containerRef.current.getBoundingClientRect();
     const { rows } = gridLayout;
     const startRatioV = rows[0] / (rows[0] + rows[2]);
 
@@ -70,7 +72,7 @@ export const ResizableGrid = ({
   };
 
   // Actualizar dimensiones durante el redimensionamiento
-  const handleResize = (e:any) => {
+  const handleResize = (e: any) => {
     if (!containerRef.current) return;
 
     const containerRect = containerRef.current.getBoundingClientRect();
@@ -139,22 +141,36 @@ export const ResizableGrid = ({
     };
   }, [resizing]);
 
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Crear las propiedades del grid
   const gridStyle: React.CSSProperties = {
     display: "grid",
     gridTemplateColumns: `${gridLayout.columns[0]}fr ${
-      gridLayout.columns[1]
+      windowSize.width < 768 ? "5" : gridLayout.columns[1]
     }px ${gridLayout.columns[2]}fr`,
-    gridTemplateRows: `${gridLayout.rows[0]}fr ${gridLayout.rows[1]}px ${
-      gridLayout.rows[2]
-    }fr`,
-    height: "100vh",
-    maxWidth: "1200px",
+    gridTemplateRows: `${gridLayout.rows[0]}fr ${
+      windowSize.height < 500 ? "5" : gridLayout.rows[1]
+    }px ${gridLayout.rows[2]}fr`,
+    height: windowSize.width < 576 ? "100vh" : "95vh",
+    width: "100%",
+    maxWidth: "1800px",
     margin: "0 auto",
-    border: "2px solid #666",
-    borderRadius: "10px",
-    padding: "20px",
+    border: windowSize.width < 576 ? "1px solid #666" : "2px solid #666",
+    borderRadius: windowSize.width < 576 ? "5px" : "10px",
+    padding: windowSize.width < 576 ? "5px" : "10px",
     boxSizing: "border-box",
+    overflow: "auto",
   };
 
   return (
@@ -211,5 +227,3 @@ export const ResizableGrid = ({
     </div>
   );
 };
-
-export default ResizableGrid;
