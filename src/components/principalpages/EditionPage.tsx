@@ -3,6 +3,7 @@ import { Script } from "../sections/Script";
 import { Translation } from "../sections/Translation";
 import { Video } from "../sections/Video";
 import borders from "../../assets/BOARDERS.mp4";
+import { NavBar } from "../navbar/NavBar";
 
 export const EditionPage = () => {
   const handleDocumentLoaded = (content: string) => {
@@ -33,6 +34,7 @@ export const EditionPage = () => {
 
   return (
     <>
+      <NavBar />
       <ResizableGrid sections={section} />
     </>
   );

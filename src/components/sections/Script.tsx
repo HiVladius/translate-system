@@ -4,7 +4,7 @@ import * as pdfjs from "pdfjs-dist";
 // import pdfWorker from "pdfjs-dist/build/pdf.worker.entry";
 import "./styles/Script.css";
 
-import { TextItem } from "../interface/interfaces";
+import { TextItem } from "../interface/interfaces.ts";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
@@ -22,7 +22,7 @@ export const Script = ({ onContentLoaded }: ScriptProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file = (e.target as HTMLInputElement).files?.[0];
 
     if (!file) return;
 
