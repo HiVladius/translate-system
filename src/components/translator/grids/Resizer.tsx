@@ -1,5 +1,5 @@
 import React from "react";
-import { ResizerProps } from "../interface/interfaces";
+import { ResizerProps } from "../../../interface/interfaces";
 
 export const Resizer: React.FC<ResizerProps> = ({
   direction = "horizontal",

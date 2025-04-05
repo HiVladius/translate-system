@@ -4,7 +4,7 @@ import * as pdfjs from "pdfjs-dist";
 // import pdfWorker from "pdfjs-dist/build/pdf.worker.entry";
 import "./styles/Script.css";
 
-import { TextItem } from "../interface/interfaces.ts";
+import { TextItem } from "../../interface/interfaces";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;

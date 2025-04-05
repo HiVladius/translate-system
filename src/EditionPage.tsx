@@ -1,9 +1,9 @@
-import { ResizableGrid } from "../grids/ResizableGrid";
-import { Script } from "../sections/Script";
-import { Translation } from "../sections/Translation";
-import { Video } from "../sections/Video";
-import borders from "../../assets/BOARDERS.mp4";
-import { NavBar } from "../navbar/NavBar";
+import { ResizableGrid } from "./components/translator/grids/ResizableGrid";
+import { Script } from "../src/components/translator/sections/Script";
+import { Translation } from "../src/components/translator/sections/Translation";
+import { Video } from "../src/components/translator/sections/Video";
+import borders from "../src/assets/BOARDERS.mp4";
+import { NavBar } from "./components/translator/navbar/NavBar";
 
 export const EditionPage = () => {
   const handleDocumentLoaded = (content: string) => {

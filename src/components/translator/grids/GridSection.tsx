@@ -1,5 +1,5 @@
 import React from "react";
-import { GridSectionProps } from "../interface/interfaces";
+import { GridSectionProps } from "../../../interface/interfaces";
 
 export const GridSection = (
   { gridPosition, title, content }: GridSectionProps,
@@ -8,10 +8,10 @@ export const GridSection = (
     gridColumn: gridPosition.column,
     gridRow: gridPosition.row,
     border: "1px solid #3b5898",
-    borderRadius: "5px",
+    borderRadius: "2px",
     display: "flex",
     flexDirection: "column",
-    padding: "10px",
+    padding: "5px",
     overflow: "auto",
   };
 

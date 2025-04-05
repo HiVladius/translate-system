@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { GridSection } from "./GridSection";
 import { Resizer } from "./Resizer";
-import { ResizableGridProps } from "../interface/interfaces";
+import { ResizableGridProps } from "../../../interface/interfaces";
 
 export const ResizableGrid = ({
   initialLayout = { columns: [1, 10, 1], rows: [2, 10, 1] },
@@ -13,7 +13,11 @@ export const ResizableGrid = ({
   },
 }: ResizableGridProps) => {
   // Estado para las proporciones del grid
-  const [gridLayout, setGridLayout] = useState(initialLayout);
+  const [gridLayout, setGridLayout] = useState(() => {
+    // Intentar cargar el layout guardado del localStorage
+    const savedLayout = localStorage.getItem('gridLayout');
+    return savedLayout ? JSON.parse(savedLayout) : initialLayout;
+  });
 
   // Referencias para elementos DOM
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -32,6 +36,11 @@ export const ResizableGrid = ({
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  // Guardar el layout en localStorage cuando cambie
+  useEffect(() => {
+    localStorage.setItem('gridLayout', JSON.stringify(gridLayout));
+  }, [gridLayout]);
 
   // Iniciar el redimensionamiento horizontal
   const startResizeHorizontal = (e: any) => {
@@ -166,11 +175,11 @@ export const ResizableGrid = ({
     width: "100%",
     maxWidth: "1800px",
     margin: "0 auto",
+    backgroundColor: "#f0f0f0",
     border: windowSize.width < 576 ? "1px solid #666" : "2px solid #666",
     borderRadius: windowSize.width < 576 ? "5px" : "10px",
     padding: windowSize.width < 576 ? "5px" : "10px",
-    boxSizing: "border-box",
-    overflow: "auto",
+    
   };
 
   return (

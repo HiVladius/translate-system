@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./styles/Video.css";
 import { FaPause, FaPlay, FaStop } from "react-icons/fa";
-import { VideoPlayerProps } from "../interface/interfaces";
+import { VideoPlayerProps } from "../../interface/interfaces";
 
 export const Video: React.FC<VideoPlayerProps> = ({ src, width, height }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
