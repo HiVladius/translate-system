@@ -1,9 +1,42 @@
-import React from "react";
-import { GridSectionProps } from "../../../interface/interfaces";
+import React, { useEffect, useRef, useState } from "react";
+import type { GridSectionProps } from "../../../interface/interfaces";
 
 export const GridSection = (
   { gridPosition, title, content }: GridSectionProps,
 ) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    // Función para actualizar las dimensiones
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const { clientWidth, clientHeight } = containerRef.current;
+        // Restamos espacio para el título y padding
+        const contentHeight = clientHeight - 40; // Aproximadamente para el título y márgenes
+        setDimensions({
+          width: clientWidth - 10, // Restando padding
+          height: contentHeight > 0 ? contentHeight : 0,
+        });
+      }
+    };
+
+    // Actualizar dimensiones iniciales
+    updateDimensions();
+
+    // Configurar un observador para detectar cambios de tamaño
+    const resizeObserver = new ResizeObserver(updateDimensions);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        resizeObserver.unobserve(containerRef.current);
+      }
+    };
+  }, []);
+
   const style: React.CSSProperties = {
     gridColumn: gridPosition.column,
     gridRow: gridPosition.row,
@@ -29,11 +62,19 @@ export const GridSection = (
     alignItems: "center",
   };
 
+  // Clonar el contenido y pasarle las dimensiones
+  const contentWithDimensions = content && React.isValidElement(content)
+    ? React.cloneElement(
+      content as React.ReactElement<{ width?: number; height?: number }>,
+      { width: dimensions.width, height: dimensions.height },
+    )
+    : content;
+
   return (
-    <div style={style}>
+    <div ref={containerRef} style={style}>
       <div style={titleStyle}>{title}</div>
       <div style={contentStyle}>
-        {content || title}
+        {contentWithDimensions || title}
       </div>
     </div>
   );

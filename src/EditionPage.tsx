@@ -16,7 +16,7 @@ export const EditionPage = () => {
   const section = {
     topLeft: {
       title: "VIDEO",
-      content: <Video src={video} width="720px" />,
+      content: <Video src={video} />,
     },
     topRight: {
       title: "SCRIPT",
