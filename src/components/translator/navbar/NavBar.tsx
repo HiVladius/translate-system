@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import "./NavBar.css";
 
 export const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
 
   const handleMenuToggle = () => {
     if (showMenu) {
@@ -44,10 +47,10 @@ export const NavBar = () => {
         {showMenu && (
           <div className="apps-menu" ref={menuRef}>
             <div className="menu-grid">
-              <a href="/perfil" className="menu-item">
+              <button className="menu-item" onClick={() => navigate("/translators/board")}>
                 <span className="icon">🧑‍💻</span>
                 <span>Perfil</span>
-              </a>
+              </button>
               <a href="/queue" className="menu-item">
                 <span className="icon">🗺️</span>
                 <span>Job Queue</span>
@@ -56,6 +59,10 @@ export const NavBar = () => {
                 <span className="icon">📅</span>
                 <span>Save Jobs</span>
               </a>
+              <button className="menu-item" onClick={() => navigate("/translators/edition")}>
+                <span className="icon">📋</span>
+                <span>Board</span>
+              </button>
             </div>
           </div>
         )}
