@@ -1,0 +1,86 @@
+.google-navbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 20px;
+  height: 48px;
+  background: white;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.apps-button {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  padding: 8px;
+  transition: background-color 0.2s;
+}
+
+.apps-button:hover {
+  background-color: rgba(60, 64, 67, 0.08);
+}
+
+.apps-icon {
+  fill: #5f6368;
+  width: 24px;
+  height: 24px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #043efb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.apps-menu {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.14);
+  width: 320px;
+  padding: 16px;
+  z-index: 1000;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #202124;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background: #f8f9fa;
+}
+
+.menu-item .icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}

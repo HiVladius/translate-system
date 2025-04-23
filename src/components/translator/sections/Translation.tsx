@@ -8,7 +8,7 @@ import {
   tdStyle,
   thStyle,
 } from "./styles/styles";
-import { RowData } from "../interface/interfaces";
+import { RowData } from "../../interface/interfaces";
 
 export const Translation = () => {
   const [rows, setRows] = useState<RowData[]>([]);

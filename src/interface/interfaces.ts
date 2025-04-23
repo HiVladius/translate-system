@@ -50,3 +50,9 @@ export interface VideoPlayerProps {
   width?: string;
   height?: string;
 }
+
+export interface VideoProps {
+  src: string;
+  width?: number | string;
+  height?: number | string;
+}
