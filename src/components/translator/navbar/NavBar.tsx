@@ -47,7 +47,7 @@ export const NavBar = () => {
         {showMenu && (
           <div className="apps-menu" ref={menuRef}>
             <div className="menu-grid">
-              <button className="menu-item" onClick={() => navigate("/translators/board")}>
+              <button className="menu-item" onClick={() => navigate("/translators/profile")}>
                 <span className="icon">🧑‍💻</span>
                 <span>Perfil</span>
               </button>

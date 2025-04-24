@@ -13,7 +13,9 @@
     "mammoth": "^1.9.0",
     "pdfjs-dist": "^5.1.91",
     "react": "^18.3.1",
+    "react-avatar-editor": "^13.0.2",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.3.8",
     "react-icons": "^5.5.0",
     "react-router": "^7.5.0"
   },
