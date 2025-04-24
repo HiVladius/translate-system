@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavBar } from "../../navbar/NavBar";
 import { AvatarModal } from "../../modal/AvatarModal";
 import { useNavigate } from "react-router";
@@ -25,13 +25,13 @@ export const NewProfile = () => {
   // Cargar datos guardados al iniciar el componente
   useEffect(() => {
     // Verificar si existen datos guardados en localStorage
-    const savedData = localStorage.getItem('profileData');
+    const savedData = localStorage.getItem("profileData");
     if (savedData) {
       setFormData(JSON.parse(savedData));
     }
-    
+
     // Verificar si existe un avatar guardado
-    const savedAvatar = localStorage.getItem('profileAvatar');
+    const savedAvatar = localStorage.getItem("profileAvatar");
     if (savedAvatar) {
       setAvatarUrl(savedAvatar);
     }
@@ -40,7 +40,7 @@ export const NewProfile = () => {
   // Limpiar objectURL cuando se desmonte el componente
   useEffect(() => {
     return () => {
-      if (avatarUrl && !avatarUrl.startsWith('blob:')) {
+      if (avatarUrl && !avatarUrl.startsWith("blob:")) {
         URL.revokeObjectURL(avatarUrl);
       }
     };
@@ -48,7 +48,7 @@ export const NewProfile = () => {
 
   const handleAvatarSave = (file: File) => {
     // Revocar la URL anterior si existe
-    if (avatarUrl && !avatarUrl.startsWith('blob:')) {
+    if (avatarUrl && !avatarUrl.startsWith("blob:")) {
       URL.revokeObjectURL(avatarUrl);
     }
     const objectUrl = URL.createObjectURL(file);
@@ -63,18 +63,18 @@ export const NewProfile = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleEdit = () => {    
-    localStorage.setItem('profileData', JSON.stringify(formData));   
+  const handleEdit = () => {
+    localStorage.setItem("profileData", JSON.stringify(formData));
 
     if (avatarUrl) {
-      localStorage.setItem('profileAvatar', avatarUrl);
+      localStorage.setItem("profileAvatar", avatarUrl);
     }
     navigate("/translators/profile");
   };
 
   const handleCancel = () => {
     // Recuperar datos originales desde localStorage o limpiar si no existen
-    const savedData = localStorage.getItem('profileData');
+    const savedData = localStorage.getItem("profileData");
     if (savedData) {
       setFormData(JSON.parse(savedData));
     } else {
@@ -88,10 +88,12 @@ export const NewProfile = () => {
         lenguajeNativo: "",
       });
     }
-    
+
     // Recuperar avatar original
-    const savedAvatar = localStorage.getItem('profileAvatar');
+    const savedAvatar = localStorage.getItem("profileAvatar");
     setAvatarUrl(savedAvatar);
+
+    navigate("/translators/profile");
   };
 
   const lenguajes = [
@@ -102,8 +104,7 @@ export const NewProfile = () => {
     { value: "italiano", label: "Italiano" },
     { value: "aleman", label: "Aleman" },
     { value: "chino", label: "Chino" },
-    { value: "japones", label: "Japones" }
-    
+    { value: "japones", label: "Japones" },
   ];
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -134,8 +135,6 @@ export const NewProfile = () => {
     e.target.value = "";
   };
 
-
-
   return (
     <>
       <NavBar />
@@ -144,16 +143,16 @@ export const NewProfile = () => {
           className="avatar-container"
           onClick={() => setIsAvatarModalOpen(true)}
         >
-          <img 
-            src={avatarUrl || filmblack} 
+          <img
+            src={avatarUrl || filmblack}
             alt="avatarDefault"
-            style={{ 
-              maxWidth: '100%', 
-              maxHeight: '100%', 
-              objectFit: 'cover',
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%' 
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "cover",
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
             }}
           />
         </button>
@@ -225,12 +224,12 @@ export const NewProfile = () => {
               name="lenguajes"
               onChange={handleLanguageChange}
             >
-                <option value="">Seleccionar lenguaje</option>
-                {lenguajes.map((language) => (
+              <option value="">Seleccionar lenguaje</option>
+              {lenguajes.map((language) => (
                 <option key={language.value} value={language.value}>
                   {language.label}
                 </option>
-                ))}
+              ))}
             </select>
 
             <textarea
