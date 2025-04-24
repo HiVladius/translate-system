@@ -1,0 +1,127 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0 5px;
+}
+
+.closeButton:hover {
+    color: #000;
+}
+
+.modalBody {
+    padding: 20px;
+}
+
+.dropzoneContainer {
+    border: 2px dashed #ccc;
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.dropzoneContainer:hover {
+    border-color: #666;
+}
+
+.dropzonePrompt {
+    padding: 40px 20px;
+    color: #666;
+}
+
+.previewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatarPreview {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #eaeaea;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 20px;
+    border-top: 1px solid #eaeaea;
+    gap: 10px;
+}
+
+.cancelButton, .saveButton {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.cancelButton {
+    background-color: white;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.cancelButton:hover {
+    background-color: #f5f5f54b;
+}
+
+.saveButton {
+    background-color: #3498db;
+    border: 1px solid #3498db;
+    color: white;
+}
+
+.saveButton:hover {
+    background-color: #2980b9;
+}
+
+.saveButton:disabled {
+    background-color: #b3d4e7;
+    border-color: #b3d4e7;
+    cursor: not-allowed;
+}
