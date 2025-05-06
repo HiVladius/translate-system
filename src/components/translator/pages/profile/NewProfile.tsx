@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { z } from "zod";
+
 import { NavBar } from "../../navbar/NavBar";
 import { AvatarModal } from "../../modal/AvatarModal";
-import { useNavigate } from "react-router";
-
 import "./styles/Profile1.css";
 import filmblack from "../../../../assets/film-black.png";
 import { FormData } from "../../../../interface/profile.interfaces";
@@ -18,6 +19,27 @@ export const NewProfile = () => {
     lenguaje: "",
     lenguajeNativo: "",
   });
+
+  const profileSchema = z.object({
+    nombre: z.string().min(1, { message: "Nombre es requerido" }),
+    apellido: z.string().min(1, { message: "Apellido es requerido" }),
+    telefono: z.string()
+      .refine((val) => val === "" || /^\d{9,10}$/.test(val), {
+        message: "El teléfono debe tener 9-10 dígitos",
+      }),
+    email: z.string().email({ message: "Email inválido" }),
+    direccion: z.string().min(1, { message: "Dirección es requerida" }),
+    lenguaje: z.string().optional(),
+    lenguajeNativo: z.string().min(1, {
+      message: "Lenguaje nativo es requerido",
+    }),
+  });
+  type ProfileFormData = z.infer<typeof profileSchema>;
+
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof ProfileFormData, string>>
+  >({});
+  const [formSubmited, setFormSubmited] = useState(false);
 
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -55,21 +77,69 @@ export const NewProfile = () => {
     setAvatarUrl(objectUrl);
   };
 
+  const validateForm = () => {
+    try {
+      profileSchema.parse(formData);
+      setErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors: Partial<Record<keyof ProfileFormData, string>> = {};
+        error.errors.forEach((err) => {
+          const field = err.path[0] as keyof ProfileFormData;
+          fieldErrors[field] = err.message;
+        });
+        setErrors(fieldErrors);
+      }
+      return false;
+    }
+  };
+
+  const validateField = (name: keyof ProfileFormData, value: string) => {
+    try {
+      profileSchema.shape[name].parse(value);
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setErrors((prev) => ({
+          ...prev,
+          [name]: error.errors[0].message,
+        }));
+      }
+    }
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
 
     setFormData({ ...formData, [name]: value });
+
+    if (formSubmited) {
+      validateField(name as keyof ProfileFormData, value);
+    }
   };
 
   const handleEdit = () => {
-    localStorage.setItem("profileData", JSON.stringify(formData));
+    setFormSubmited(true);
+    if (validateForm()) {
+      localStorage.setItem("profileData", JSON.stringify(formData));
 
-    if (avatarUrl) {
-      localStorage.setItem("profileAvatar", avatarUrl);
+      if (avatarUrl) {
+        localStorage.setItem("profileAvatar", avatarUrl);
+      }
+      navigate("/translators/profile");
+    } else {
+      const firstErrorField = document.querySelector(".error-message");
+      if (firstErrorField) {
+        firstErrorField.scrollIntoView({ behavior: "smooth" });
+      }
     }
-    navigate("/translators/profile");
   };
 
   const handleCancel = () => {
@@ -146,14 +216,7 @@ export const NewProfile = () => {
           <img
             src={avatarUrl || filmblack}
             alt="avatarDefault"
-            style={{
-              maxWidth: "100%",
-              maxHeight: "100%",
-              objectFit: "cover",
-              width: "100%",
-              height: "100%",
-              borderRadius: "50%",
-            }}
+            className="avatar-image"
           />
         </button>
 
@@ -166,58 +229,72 @@ export const NewProfile = () => {
 
         <form>
           <div className="form-group">
-            <label>Nombre:</label>
+            <label>
+              Nombre: <span className="required">*</span>
+            </label>
             <input
               type="text"
               name="nombre"
               value={formData.nombre}
               onChange={handleChange}
+              className={errors.nombre ? "input-error" : ""}
             />
+            {errors.nombre && (
+              <div className="error-message">{errors.nombre}</div>
+            )}
           </div>
           <div className="form-group">
-            <label>Apellido:</label>
-            <input
-              type="text"
-              name="apellido"
-              value={formData.apellido}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Teléfono:</label>
-            <input
-              type="text"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Dirección:</label>
-            <textarea
-              name="direccion"
-              value={formData.direccion}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Lenguaje Nativo:</label>
-            <input
-              type="text"
-              name="lenguajeNativo"
-              value={formData.lenguajeNativo}
-              onChange={handleChange}
-            />
-          </div>
+          <label>Apellido: <span className="required">*</span></label>
+          <input
+            type="text"
+            name="apellido"
+            value={formData.apellido}
+            onChange={handleChange}
+            className={errors.apellido ? "input-error" : ""}
+          />
+          {errors.apellido && <div className="error-message">{errors.apellido}</div>}
+        </div>
+        <div className="form-group">
+          <label>Teléfono:</label>
+          <input
+            type="text"
+            name="telefono"
+            value={formData.telefono}
+            onChange={handleChange}
+            className={errors.telefono ? "input-error" : ""}
+          />
+          {errors.telefono && <div className="error-message">{errors.telefono}</div>}
+        </div>
+        <div className="form-group">
+          <label>Email: <span className="required">*</span></label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className={errors.email ? "input-error" : ""}
+          />
+          {errors.email && <div className="error-message">{errors.email}</div>}
+        </div>
+        <div className="form-group">
+          <label>Dirección:</label>
+          <textarea
+            name="direccion"
+            value={formData.direccion}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Lenguaje Nativo: <span className="required">*</span></label>
+          <input
+            type="text"
+            name="lenguajeNativo"
+            value={formData.lenguajeNativo}
+            onChange={handleChange}
+            className={errors.lenguajeNativo ? "input-error" : ""}
+          />
+          {errors.lenguajeNativo && <div className="error-message">{errors.lenguajeNativo}</div>}
+        </div>
           <div className="form-group">
             <label>Lenguajes:</label>
             <select

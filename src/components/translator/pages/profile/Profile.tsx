@@ -5,6 +5,7 @@ import filmblack from "../../../../assets/film-black.png";
 import { useNavigate } from 'react-router';
 
 import "./styles/Profile1.css";
+import { FinishProjects } from '../history/FinishProjects';
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -45,7 +46,36 @@ export const Profile = () => {
         </div>
       </>
     );
+
   }
+
+  const projectTest = [
+    {
+      name: "Proyecto  de prueba para la prueba de la tabla",
+      dateAdded: "2023-10-01",
+      project: "HBO",
+      dateStarted: "2023-10-01",
+      dateEnded: "2023-10-05",
+      status: "Finalizado",
+    },
+    {
+      name: "Disorder",
+      dateAdded: "2023-10-02",
+      project: "Netflix",
+      dateStarted: "2023-10-02",
+      dateEnded: "2023-10-06",
+      status: "Reasignado",
+    },
+    {
+      name: "Prieta de la selva",
+      dateAdded: "2024-10-03",
+      project: "Disney",
+      dateStarted: "2023-10-03",
+      dateEnded: "2023-10-07",
+      status: "Pausado",
+    },
+  ]
+
 
   return (
     <>
@@ -105,6 +135,8 @@ export const Profile = () => {
             </div>
           </div>
         </div>
+
+        <FinishProjects projects={projectTest} title="Historial" />
 
         <div className="button-group">
           <button type="button" onClick={handleEditProfile} className="edit-button">
