@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import {logout} from "../../../service/api.login";
 import "./NavBar.css";
 
 export const NavBar = () => {
@@ -62,6 +63,14 @@ export const NavBar = () => {
               <button className="menu-item" onClick={() => navigate("/translators/edition")}>
                 <span className="icon">📋</span>
                 <span>Board</span>
+              </button>
+
+              <button className="menu-item" onClick={() =>{
+                logout();
+                navigate("/login");
+              }}>
+                <span className="icon">👋</span>
+                <span>logout</span>
               </button>
             </div>
           </div>

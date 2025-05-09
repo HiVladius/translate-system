@@ -1,0 +1,129 @@
+/* Reset básico para eliminar márgenes y paddings predeterminados */
+
+.login-container {
+    display: grid;
+    grid-template-columns: 50% 50%; /* 30% formulario, 70% logo */
+    height: 100vh;
+    width: 100vw; /* Usa viewport width para asegurar ancho completo */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed; /* Esto ayuda a fijar el contenedor a la ventana */
+    top: 0;
+    left: 0;
+}
+
+/* Sección del formulario */
+.login-form-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+    background-color: #000000;
+    box-shadow: 2px 0 10px #000000;
+    z-index: 1;
+    height: 100%; /* Asegura que ocupe el 100% de altura */
+}
+
+.login-form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-title {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    color: #e32c47;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    text-shadow: 0 0 5px #e32c472c;
+    letter-spacing: 1px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #587c8a;
+}
+
+.form-group input {
+    padding: 0.8rem 1rem;
+    border: 1px solid #587c8a;
+    background-color: #1a1a1a; /* Corregido para contraste */
+    color: white;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.login-button {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background-color: #2f2f32;
+    color: white;
+    border: oklab(#0f0f0f #1a1a1a #2f2f32, 0.5) solid;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.4s;
+    width: 100%;
+}
+
+.login-button:hover {
+    background-color: #131313;
+}
+
+/* Sección del logo */
+.login-image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #101010;
+    overflow: hidden;
+    height: 100%; /* Asegura que ocupe el 100% de altura */
+}
+
+.login-image {
+    max-width: 50%;
+    max-height: 50%;
+    object-fit: contain;
+}
+
+/* Responsive: para pantallas pequeñas */
+@media (max-width: 768px) {
+    .login-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+        height: 100vh;
+        position: fixed; /* Mantiene el contenedor fijo incluso en móvil */
+    }
+    
+    .login-form-section {
+        padding: 1.5rem;
+        order: 2;
+        height: auto;
+    }
+    
+    .login-image-section {
+        order: 1;
+        padding: 2rem;
+        height: 30vh;
+    }
+}
